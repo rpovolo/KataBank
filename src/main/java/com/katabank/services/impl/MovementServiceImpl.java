@@ -21,25 +21,25 @@ public class MovementServiceImpl implements MovementService {
     }
 
     @Override
-    public List<MovementDTO> getMovements(Long accountId, LocalDateTime startDate, LocalDateTime endDate) {
+    public List<MovementDTO> getMovements(String account, LocalDateTime startDate, LocalDateTime endDate) {
         List<Movement> movements;
 
         if (startDate != null && endDate != null) {
-            movements = movementRepository.findByAccountIdAndCreatedAtBetween(accountId, startDate, endDate);
+            movements = movementRepository.findByAccountIdAndCreatedAtBetween(account, startDate, endDate);
         }
         else if (startDate != null) {
-            movements = movementRepository.findByAccountIdAndCreatedAtAfter(accountId, startDate);
+            movements = movementRepository.findByAccountIdAndCreatedAtAfter(account, startDate);
         }
         else if (endDate != null) {
-            movements = movementRepository.findByAccountIdAndCreatedAtBefore(accountId, endDate);
+            movements = movementRepository.findByAccountIdAndCreatedAtBefore(account, endDate);
         }
         else {
-            movements = movementRepository.findByAccountId(accountId);
+            movements = movementRepository.findByAccountId(account);
         }
 
         return movements.stream()
                 .map(this::convertToDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
 

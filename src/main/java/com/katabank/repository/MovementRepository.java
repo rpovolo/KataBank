@@ -11,10 +11,10 @@ import java.util.List;
 
 @Repository
 public interface MovementRepository extends JpaRepository<Movement, Long> {
-    @Query("SELECT m FROM Movement m WHERE m.account.id = :accountId AND m.createdAt BETWEEN :startDate AND :endDate")
-    List<Movement> findByAccountIdAndCreatedAtBetween(Long accountId, LocalDateTime startDate, LocalDateTime endDate);
-    List<Movement> findByAccountIdAndCreatedAtAfter(Long accountId, LocalDateTime startDate);
-    List<Movement> findByAccountIdAndCreatedAtBefore(Long accountId, LocalDateTime endDate);
-    List<Movement> findByAccountId(Long accountId);
+    @Query("SELECT m FROM Movement m WHERE m.account.cbuCvu = :account AND m.createdAt BETWEEN :startDate AND :endDate")
+    List<Movement> findByAccountIdAndCreatedAtBetween(String account, LocalDateTime startDate, LocalDateTime endDate);
+    List<Movement> findByAccountIdAndCreatedAtAfter(String accountId, LocalDateTime startDate);
+    List<Movement> findByAccountIdAndCreatedAtBefore(String accountId, LocalDateTime endDate);
+    List<Movement> findByAccountId(String accountId);
 
 }

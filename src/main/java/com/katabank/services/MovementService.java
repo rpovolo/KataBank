@@ -7,5 +7,5 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface MovementService {
-    List<MovementDTO> getMovements(Long accountId, LocalDateTime startDate, LocalDateTime endDate);
+    List<MovementDTO> getMovements(String account, LocalDateTime startDate, LocalDateTime endDate);
 }

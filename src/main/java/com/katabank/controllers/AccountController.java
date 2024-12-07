@@ -52,15 +52,15 @@ public class AccountController {
             @RequestParam(required = false) LocalDate endDate) {
         return null;
     }
-    @GetMapping("/{accountId}/movements")
+    @GetMapping("/{account}/movements")
     public ResponseEntity<List<MovementDTO>> getAccountMovements(
-            @PathVariable Long accountId,
+            @PathVariable String account,
             @RequestParam(required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @RequestParam(required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
 
-        List<MovementDTO> movements = movementService.getMovements(accountId, startDate, endDate);
+        List<MovementDTO> movements = movementService.getMovements(account, startDate, endDate);
         return new ResponseEntity<>(movements, HttpStatus.OK);
     }
 }
