@@ -1,11 +1,14 @@
 package com.katabank.entity;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor  // Lombok genera un constructor sin parámetros
+@AllArgsConstructor
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

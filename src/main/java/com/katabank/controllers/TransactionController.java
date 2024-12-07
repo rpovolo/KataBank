@@ -6,6 +6,7 @@ import com.katabank.exception.NotFoundException;
 import com.katabank.repository.AccountRepository;
 import com.katabank.repository.TransactionRepository;
 import com.katabank.services.TransactionService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,23 +19,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/banking/v1")
+@Tag(name = "Transaction", description = "API for handling transactions, including fund transfers between accounts.")
 public class TransactionController {
     private final TransactionService transactionService;
 
     public TransactionController(TransactionService transactionService) {
         this.transactionService = transactionService;
-    }
-
-    @GetMapping("/accounts/{cbuCvu}")
-    public ResponseEntity<List<Transaction>> getTransactions(
-            @PathVariable("cbuCvu") String cbuCvu,
-            @RequestParam(required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam(required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        List<Transaction> transactions = transactionService.getTransactions(cbuCvu, startDate, endDate);
-        return new ResponseEntity<>(transactions, HttpStatus.OK);
-
     }
 
     @PostMapping("/transactions/transfer")

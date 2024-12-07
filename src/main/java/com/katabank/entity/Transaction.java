@@ -1,16 +1,16 @@
 package com.katabank.entity;
 
-import com.katabank.enun.TransactionType;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
-@Builder
+@Getter
+@Setter
+@NoArgsConstructor  // Lombok genera un constructor sin parámetros
+@AllArgsConstructor
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

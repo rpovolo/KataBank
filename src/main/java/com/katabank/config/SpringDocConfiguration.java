@@ -12,27 +12,17 @@ import org.springframework.context.annotation.Configuration;
 public class SpringDocConfiguration {
 
     @Bean(name = "config.com.katabank.SpringDocConfiguration.apiInfo")
-    OpenAPI apiInfo() {
+    public OpenAPI apiInfo() {
         return new OpenAPI()
                 .info(
                         new Info()
-                                .title("ABM Users API definition")
-                                .description("This API facilitates the registration of bank users, offering a straightforward digital onboarding process. It accepts and returns JSON data, ensuring easy integration with various systems. Users provide basic information like name, email, and password for account setup.")
-                                .contact(
-                                        new Contact()
-                                                .name("Ricardo Ariel Povolo")
-                                                .email("rpovolo@gmail.com")
+                                .title("Katabank API - Account and Transaction Management System")
+                                .description("The Katabank API enables the management of financial operations related to bank accounts. It provides functionalities for performing account transfers, querying historical transactions, and managing credits and debits securely and efficiently.")
+                                .contact(new Contact()
+                                        .name("Ricardo Ariel Povolo")
+                                        .email("rpovolo@gmail.com")
                                 )
                                 .version("1.0.0")
-                )
-                .components(
-                        new Components()
-                                .addSecuritySchemes("bearerAuth", new SecurityScheme()
-                                        .type(SecurityScheme.Type.HTTP)
-                                        .scheme("bearer")
-                                        .bearerFormat("JWT")
-                                )
-                )
-        ;
+                );
     }
 }

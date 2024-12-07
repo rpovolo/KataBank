@@ -1,6 +1,6 @@
 package com.katabank.enun;
 
-public enum TransactionType {
-    DEBITO,
-    CREDITO
+public enum MovementType {
+    DEBIT,
+    CREDIT
 }
