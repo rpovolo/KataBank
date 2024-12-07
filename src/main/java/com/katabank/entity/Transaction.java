@@ -1,15 +1,18 @@
 package com.katabank.entity;
 
-import lombok.*;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor  // Lombok genera un constructor sin parámetros
+@NoArgsConstructor
 @AllArgsConstructor
 public class Transaction {
     @Id

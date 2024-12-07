@@ -3,16 +3,13 @@ package com.katabank.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
-
-import javax.annotation.Generated;
 import java.util.Objects;
 
 
 /**
- * Error
- */
+ * Error */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2024-04-22T16:20:20.812089561-03:00[America/Argentina/Mendoza]")
+
 @Builder
 public class Error {
 
