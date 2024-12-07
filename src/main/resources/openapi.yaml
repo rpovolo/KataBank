@@ -1,0 +1,576 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: rpovolo@gmail.com
+    name: Ricardo Ariel Povolo
+  description: "This API facilitates the registration of bank users, offering a straightforward\
+    \ digital onboarding process. It accepts and returns JSON data, ensuring easy\
+    \ integration with various systems. Users provide basic information like name,\
+    \ email, and password for account setup."
+  title: ABM Users API definition
+  version: 1.0.0
+servers:
+- description: Generated server url
+  url: "http://localhost/{basePath}"
+  variables:
+    basePath:
+      default: users/v1
+      description: The prefix of the api paths
+security:
+- bearerAuth: []
+tags:
+- name: user
+- name: phone
+paths:
+  /users:
+    get:
+      description: This operation retrieves a list of users.
+      operationId: get-users
+      parameters:
+      - description: "This header advertises which languages (natural languages) the\
+          \ client is able to understand, and which locale variant is preferred, is\
+          \ case insensitive"
+        explode: false
+        in: header
+        name: Accept-Language
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "Header parameter that advertises which content types, expressed\
+          \ as MIME types, the client is able to understand"
+        explode: false
+        in: header
+        name: Accept
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/User'
+                type: array
+          description: OK
+          headers:
+            Content-Language:
+              description: Used to describe the language(s) intended for the audience
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 400 - Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 401 - Unauthorized Response
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 404 - Not Found Response
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 500 - Internal Error Response
+      summary: Get all users / Search users
+      tags:
+      - user
+      x-accepts: application/json
+      x-tags:
+      - tag: user
+    post:
+      description: This operation creates one user. You may specify one user model
+      operationId: create-user
+      parameters:
+      - description: "This header advertises which languages (natural languages) the\
+          \ client is able to understand, and which locale variant is preferred, is\
+          \ case insensitive"
+        explode: false
+        in: header
+        name: Accept-Language
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "Header parameter that advertises which content types, expressed\
+          \ as MIME types, the client is able to understand"
+        explode: false
+        in: header
+        name: Accept
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: OK
+          headers:
+            Content-Language:
+              description: Used to describe the language(s) intended for the audience
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 400 - Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 401 - Unauthorized Response
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 404 - Not Found Response
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 500 - Internal Error Response
+      summary: Create an user
+      tags:
+      - user
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: user
+  /users/{id}:
+    delete:
+      description: This operation delete an user.
+      operationId: delete-user-by-id
+      parameters:
+      - description: A unique identifier for a user
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "This header advertises which languages (natural languages) the\
+          \ client is able to understand, and which locale variant is preferred, is\
+          \ case insensitive"
+        explode: false
+        in: header
+        name: Accept-Language
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "Header parameter that advertises which content types, expressed\
+          \ as MIME types, the client is able to understand"
+        explode: false
+        in: header
+        name: Accept
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 400 - Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 401 - Unauthorized Response
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 400 - Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 500 - Internal Error Response
+      summary: Delete a user
+      tags:
+      - user
+      x-accepts: application/json
+      x-tags:
+      - tag: user
+    get:
+      description: This operation retrieve an user by id.
+      operationId: get-user-by-id
+      parameters:
+      - description: A unique identifier for a user
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "This header advertises which languages (natural languages) the\
+          \ client is able to understand, and which locale variant is preferred, is\
+          \ case insensitive"
+        explode: false
+        in: header
+        name: Accept-Language
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "Header parameter that advertises which content types, expressed\
+          \ as MIME types, the client is able to understand"
+        explode: false
+        in: header
+        name: Accept
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: OK
+          headers:
+            Content-Language:
+              description: Used to describe the language(s) intended for the audience
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 400 - Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 401 - Unauthorized Response
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 404 - Not Found Response
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 500 - Internal Error Response
+      summary: Get a user
+      tags:
+      - user
+      x-accepts: application/json
+      x-tags:
+      - tag: user
+    put:
+      description: This operation update an user.
+      operationId: update-user-by-id
+      parameters:
+      - description: A unique identifier for a user
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "This header advertises which languages (natural languages) the\
+          \ client is able to understand, and which locale variant is preferred, is\
+          \ case insensitive"
+        explode: false
+        in: header
+        name: Accept-Language
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "Header parameter that advertises which content types, expressed\
+          \ as MIME types, the client is able to understand"
+        explode: false
+        in: header
+        name: Accept
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: OK
+          headers:
+            Content-Language:
+              description: Used to describe the language(s) intended for the audience
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 400 - Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 404 - Not Found Response
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: 500 - Internal Error Response
+      summary: Update an user
+      tags:
+      - user
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: user
+components:
+  parameters:
+    AcceptLanguageParam:
+      description: "This header advertises which languages (natural languages) the\
+        \ client is able to understand, and which locale variant is preferred, is\
+        \ case insensitive"
+      explode: false
+      in: header
+      name: Accept-Language
+      required: true
+      schema:
+        type: string
+      style: simple
+    AcceptParam:
+      description: "Header parameter that advertises which content types, expressed\
+        \ as MIME types, the client is able to understand"
+      explode: false
+      in: header
+      name: Accept
+      required: true
+      schema:
+        type: string
+      style: simple
+  responses:
+    "400BadRequestResponse":
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: 400 - Bad Request
+    "401UnauthorizedResponse":
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: 401 - Unauthorized Response
+    "404NotFoundResponse":
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: 404 - Not Found Response
+    "500InternalErrorResponse":
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      description: 500 - Internal Error Response
+  schemas:
+    User:
+      description: The User model
+      example:
+        password: password
+        name: name
+        phones:
+        - number: number
+          citycode: citycode
+          countrycode: countrycode
+        - number: number
+          citycode: citycode
+          countrycode: countrycode
+        email: email
+      properties:
+        name:
+          description: A string attribute representing the name of a user or entity
+          type: string
+          x-stoplight:
+            id: caaq7ftw3wc92
+        email:
+          description: A string attribute storing the email address of a user.
+          type: string
+          x-stoplight:
+            id: wxsizucipub4n
+        password:
+          description: |
+            A string attribute representing the password associated with a user account. This field stores confidential information used for authentication and access control purposes
+          type: string
+          x-stoplight:
+            id: xspm63ngprkbw
+        phones:
+          items:
+            $ref: '#/components/schemas/Phone'
+          type: array
+          x-stoplight:
+            id: 4stqhdbei9d1m
+      title: User
+      type: object
+      x-stoplight:
+        id: 4c5sfoyju4wgk
+    UserResponse:
+      description: The User model response
+      properties:
+        name:
+          description: A string attribute representing the name of a user or entity
+          type: string
+          x-stoplight:
+            id: 7bx47tjmf8col
+        email:
+          description: A string attribute storing the email address of a user.
+          type: string
+          x-stoplight:
+            id: i663gpf96xjej
+        password:
+          description: |
+            A string attribute representing the password associated with a user account. This field stores confidential information used for authentication and access control purposes
+          type: string
+          x-stoplight:
+            id: vz79ma3347y2h
+        phones:
+          items:
+            $ref: '#/components/schemas/Phone'
+          type: array
+          x-stoplight:
+            id: dv728f5u5yka4
+        created:
+          format: date-time
+          type: string
+          x-stoplight:
+            id: 6kljgpfylwr2v
+        modified:
+          format: date-time
+          type: string
+          x-stoplight:
+            id: litbjdsuz8xo8
+        last_login:
+          format: date-time
+          type: string
+          x-stoplight:
+            id: x6wrq04ebyw37
+        token:
+          type: string
+          x-stoplight:
+            id: tj4wlvcmrydw4
+        inactive:
+          type: boolean
+          x-stoplight:
+            id: xxuaz5gyo0oi8
+      title: UserResponse
+      type: object
+      x-stoplight:
+        id: ivapikvrjca7i
+    Phone:
+      description: The Phone model.
+      example:
+        number: number
+        citycode: citycode
+        countrycode: countrycode
+      properties:
+        number:
+          description: "A string attribute representing a specific number, such as\
+            \ an address number or a unique identifier."
+          type: string
+          x-stoplight:
+            id: mttxjzu0k6a4i
+        citycode:
+          description: A string attribute storing the code of the associated city.
+            This code can uniquely identify a city in a system or database
+          type: string
+          x-stoplight:
+            id: ewwpk0ds4d569
+        countrycode:
+          description: A string attribute holding the code of the corresponding country.
+          type: string
+          x-stoplight:
+            id: s4q4riq3dqk15
+      title: Phone
+      type: object
+      x-stoplight:
+        id: 8cyn0nr7nfyet
+    Error:
+      properties:
+        field:
+          description: Message identifier.
+          type: string
+          x-stoplight:
+            id: xzhmkeetcchje
+        error_message:
+          description: Error message.
+          type: string
+          x-stoplight:
+            id: ogrea8ptxrwdq
+      title: Error
+      type: object
+      x-stoplight:
+        id: libkaisip0c7l
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

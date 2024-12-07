@@ -1,0 +1,16 @@
+README.md
+pom.xml
+src/main/java/com/bci/user/OpenApiGeneratorApplication.java
+src/main/java/com/bci/user/RFC3339DateFormat.java
+src/main/java/com/bci/user/config/HomeController.java
+src/main/java/com/bci/user/config/SpringDocConfiguration.java
+src/main/java/com/bci/user/controllers/ApiUtil.java
+src/main/java/com/bci/user/controllers/UserApi.java
+src/main/java/com/bci/user/controllers/UserApiController.java
+src/main/java/com/bci/user/model/Error.java
+src/main/java/com/bci/user/model/Phone.java
+src/main/java/com/bci/user/model/User.java
+src/main/java/com/bci/user/model/UserResponse.java
+src/main/resources/application.properties
+src/main/resources/openapi.yaml
+src/test/java/com/bci/user/OpenApiGeneratorApplicationTests.java
