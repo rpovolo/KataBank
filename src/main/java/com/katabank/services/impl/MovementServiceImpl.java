@@ -25,16 +25,16 @@ public class MovementServiceImpl implements MovementService {
         List<Movement> movements;
 
         if (startDate != null && endDate != null) {
-            movements = movementRepository.findByAccountIdAndCreatedAtBetween(account, startDate, endDate);
+            movements = movementRepository.findByAccountAndCreatedAtBetween(account, startDate, endDate);
         }
         else if (startDate != null) {
-            movements = movementRepository.findByAccountIdAndCreatedAtAfter(account, startDate);
+            movements = movementRepository.findByAccountAndCreatedAtAfter(account, startDate);
         }
         else if (endDate != null) {
-            movements = movementRepository.findByAccountIdAndCreatedAtBefore(account, endDate);
+            movements = movementRepository.findByAccountAndCreatedAtBefore(account, endDate);
         }
         else {
-            movements = movementRepository.findByAccountId(account);
+            movements = movementRepository.findByAccount(account);
         }
 
         return movements.stream()
