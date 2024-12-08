@@ -11,14 +11,17 @@ import java.util.Objects;
 
 
 @Builder
-public class Error {
+public class ErrorDTO {
+
+  @JsonProperty("code")
+  private String code;
 
   @JsonProperty("message")
   private String message;
 
-  public Error message(String message) {
+  public ErrorDTO(String code, String message) {
+    this.code = code;
     this.message = message;
-    return this;
   }
 
   /**
@@ -43,8 +46,8 @@ public class Error {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Error error = (Error) o;
-    return Objects.equals(this.message, error.message);
+    ErrorDTO errorDTO = (ErrorDTO) o;
+    return Objects.equals(this.message, errorDTO.message);
   }
 
   @Override

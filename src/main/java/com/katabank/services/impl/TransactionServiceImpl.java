@@ -38,14 +38,14 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public void transferFundsBetweenAccounts(TransferRequestDTO transferRequestDTO) {
+    public Transaction transferFundsBetweenAccounts(TransferRequestDTO transferRequestDTO) {
         var sourceAccount = validateAndGetAccount(transferRequestDTO.getSource(), "Source account not found");
         var destinationAccount = validateAndGetAccount(transferRequestDTO.getDestination(), "Destination account not found");
 
         validateSufficientFunds(sourceAccount, transferRequestDTO.getAmount());
 
         try {
-            processTransfer(sourceAccount, destinationAccount, transferRequestDTO);
+            return processTransfer(sourceAccount, destinationAccount, transferRequestDTO);
         } catch (Exception e) {
             throw new InternalErrorException("Unexpected error: " + e.getMessage());
         }
@@ -62,7 +62,7 @@ public class TransactionServiceImpl implements TransactionService {
         }
     }
 
-    private void processTransfer(Account sourceAccount, Account destinationAccount, TransferRequestDTO transferRequestDTO) {
+    private Transaction processTransfer(Account sourceAccount, Account destinationAccount, TransferRequestDTO transferRequestDTO) {
 
         sourceAccount.setBalance(sourceAccount.getBalance().subtract(transferRequestDTO.getAmount()));
         destinationAccount.setBalance(destinationAccount.getBalance().add(transferRequestDTO.getAmount()));
@@ -74,6 +74,8 @@ public class TransactionServiceImpl implements TransactionService {
 
         accountRepository.save(sourceAccount);
         accountRepository.save(destinationAccount);
+
+        return transaction;
     }
 
     private Transaction createTransaction(Account sourceAccount, Account destinationAccount, TransferRequestDTO transferRequestDTO) {

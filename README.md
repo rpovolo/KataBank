@@ -19,3 +19,7 @@ You can view the api documentation in swagger-ui by pointing to
 http://localhost:8080/swagger-ui.html
 
 Change default port value in application.properties
+
+docker build -t kata-bank-1.0.0 .
+
+docker run --name kata-bank-1.0.0 -p 8080:8080 kata-bank-1.0.0

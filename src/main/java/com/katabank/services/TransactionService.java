@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface TransactionService {
     List<Transaction> getTransactions(String cbuCvu, LocalDate startDate, LocalDate endDate);
-    void transferFundsBetweenAccounts(TransferRequestDTO transferRequestDTO);
+    Transaction transferFundsBetweenAccounts(TransferRequestDTO transferRequestDTO);
 }

@@ -2,12 +2,15 @@ package com.katabank.controllers;
 
 import com.katabank.dto.AccountDTO;
 import com.katabank.dto.AccountRequestDTO;
+import com.katabank.dto.ErrorDTO;
 import com.katabank.dto.MovementDTO;
 import com.katabank.entity.Transaction;
 import com.katabank.services.AccountService;
 import com.katabank.services.MovementService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -16,6 +19,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -37,8 +41,12 @@ public class AccountController {
     @Operation(summary = "Create a new account", description = "Creates a new bank account with the provided details.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Account created successfully"),
-            @ApiResponse(responseCode = "400", description = "Invalid input data"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(responseCode = "400", description = "Invalid input data", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))
+            })
     })
     public ResponseEntity<AccountDTO> saveAccount(@RequestBody @Valid AccountRequestDTO accountRequestDTO) {
         AccountDTO accountDTO = accountService.save(accountRequestDTO);
@@ -51,7 +59,9 @@ public class AccountController {
     @Operation(summary = "Get all accounts", description = "Retrieve a list of all user accounts.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List of accounts retrieved successfully"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))
+            })
     })
     public ResponseEntity<List<AccountDTO>> getAccounts() {
         return new ResponseEntity<>(
@@ -64,8 +74,12 @@ public class AccountController {
     @Operation(summary = "Get account transactions", description = "Retrieve a list of transactions for a specific account.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Transactions retrieved successfully"),
-            @ApiResponse(responseCode = "404", description = "Account not found"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(responseCode = "404", description = "Account not found", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))
+            })
     })
     public ResponseEntity<List<Transaction>> getAccountTransactions(
             @PathVariable
@@ -81,8 +95,12 @@ public class AccountController {
     @Operation(summary = "Get account movements", description = "Retrieve account movements within a specified date range.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Movements retrieved successfully"),
-            @ApiResponse(responseCode = "404", description = "Account not found"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(responseCode = "404", description = "Account not found", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))
+            })
     })
     public ResponseEntity<List<MovementDTO>> getAccountMovements(
             @PathVariable
