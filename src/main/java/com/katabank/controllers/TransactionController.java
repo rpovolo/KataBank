@@ -1,6 +1,8 @@
 package com.katabank.controllers;
 
+import com.katabank.dto.AccountDTO;
 import com.katabank.dto.ErrorDTO;
+import com.katabank.dto.TransactionDTO;
 import com.katabank.dto.TransferRequestDTO;
 import com.katabank.entity.Transaction;
 import com.katabank.exception.NotFoundException;
@@ -46,8 +48,23 @@ public class TransactionController {
             })
     })
     @PostMapping("/transactions/transfer")
-    public ResponseEntity<Transaction> transferFundsBetweenAccounts(@RequestBody @Valid TransferRequestDTO transferRequestDTO) {
-        Transaction transaction = transactionService.transferFundsBetweenAccounts(transferRequestDTO);
+    public ResponseEntity<TransactionDTO> transferFundsBetweenAccounts(@RequestBody @Valid TransferRequestDTO transferRequestDTO) {
+        TransactionDTO transaction = transactionService.transferFundsBetweenAccounts(transferRequestDTO);
         return ResponseEntity.ok(transaction);
+    }
+
+    @GetMapping("/transactions/transfer")
+    @Operation(summary = "Get all transactions", description = "Retrieve a list of all transactions.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of transactions retrieved successfully"),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))
+            })
+    })
+    public ResponseEntity<List<TransactionDTO>> getAccounts() {
+        return new ResponseEntity<>(
+                transactionService.getTransactions(),
+                HttpStatus.OK
+        );
     }
 }

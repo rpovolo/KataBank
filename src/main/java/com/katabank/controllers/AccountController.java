@@ -70,27 +70,6 @@ public class AccountController {
         );
     }
 
-    @GetMapping("/{cbuCvu}/transactions")
-    @Operation(summary = "Get account transactions", description = "Retrieve a list of transactions for a specific account.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Transactions retrieved successfully"),
-            @ApiResponse(responseCode = "404", description = "Account not found", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))
-            }),
-            @ApiResponse(responseCode = "500", description = "Internal server error", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))
-            })
-    })
-    public ResponseEntity<List<Transaction>> getAccountTransactions(
-            @PathVariable
-            @Parameter(description = "CBU or CVU of the account") String cbuCvu,
-            @RequestParam(required = false)
-            @Parameter(description = "Start date in UTC for the transactions filter, in ISO 8601 format (e.g., 2024-12-05T17:10:04.879+00:00) (optional).") LocalDate startDate,
-            @RequestParam(required = false)
-            @Parameter(description = "End date in UTC for the transactions filter, in ISO 8601 format (e.g., 2024-12-05T17:10:04.879+00:00) (optional).") LocalDate endDate) {
-        return null;
-    }
-
     @GetMapping("/{account}/movements")
     @Operation(summary = "Get account movements", description = "Retrieve account movements within a specified date range.")
     @ApiResponses(value = {

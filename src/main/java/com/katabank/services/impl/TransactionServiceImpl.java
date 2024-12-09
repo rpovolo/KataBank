@@ -1,5 +1,6 @@
 package com.katabank.services.impl;
 
+import com.katabank.dto.TransactionDTO;
 import com.katabank.dto.TransferRequestDTO;
 import com.katabank.entity.Movement;
 import com.katabank.entity.Transaction;
@@ -7,10 +8,13 @@ import com.katabank.entity.Account;
 import com.katabank.enun.MovementType;
 import com.katabank.exception.InternalErrorException;
 import com.katabank.exception.NotFoundException;
+import com.katabank.mapper.AccountMapper;
+import com.katabank.mapper.TransactionMapper;
 import com.katabank.repository.AccountRepository;
 import com.katabank.repository.MovementRepository;
 import com.katabank.repository.TransactionRepository;
 import com.katabank.services.TransactionService;
+import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -24,6 +28,7 @@ public class TransactionServiceImpl implements TransactionService {
     private final TransactionRepository transactionRepository;
     private final AccountRepository accountRepository;
     private final MovementRepository movementRepository;
+    private final TransactionMapper transactionMapper =  Mappers.getMapper(TransactionMapper.class);
 
     public TransactionServiceImpl(TransactionRepository transactionRepository, AccountRepository accountRepository, MovementRepository movementRepository) {
         this.transactionRepository = transactionRepository;
@@ -32,13 +37,12 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<Transaction> getTransactions(String cbuCvu, LocalDate startDate, LocalDate endDate) {
-        // Implementación futura
-        return null;
+    public List<TransactionDTO> getTransactions() {
+        return transactionMapper.toTransactionDTOs(transactionRepository.findAll());
     }
 
     @Override
-    public Transaction transferFundsBetweenAccounts(TransferRequestDTO transferRequestDTO) {
+    public TransactionDTO transferFundsBetweenAccounts(TransferRequestDTO transferRequestDTO) {
         var sourceAccount = validateAndGetAccount(transferRequestDTO.getSource(), "Source account not found");
         var destinationAccount = validateAndGetAccount(transferRequestDTO.getDestination(), "Destination account not found");
 
@@ -62,7 +66,7 @@ public class TransactionServiceImpl implements TransactionService {
         }
     }
 
-    private Transaction processTransfer(Account sourceAccount, Account destinationAccount, TransferRequestDTO transferRequestDTO) {
+    private TransactionDTO processTransfer(Account sourceAccount, Account destinationAccount, TransferRequestDTO transferRequestDTO) {
 
         sourceAccount.setBalance(sourceAccount.getBalance().subtract(transferRequestDTO.getAmount()));
         destinationAccount.setBalance(destinationAccount.getBalance().add(transferRequestDTO.getAmount()));
@@ -75,7 +79,7 @@ public class TransactionServiceImpl implements TransactionService {
         accountRepository.save(sourceAccount);
         accountRepository.save(destinationAccount);
 
-        return transaction;
+        return transactionMapper.toDTO(transaction);
     }
 
     private Transaction createTransaction(Account sourceAccount, Account destinationAccount, TransferRequestDTO transferRequestDTO) {

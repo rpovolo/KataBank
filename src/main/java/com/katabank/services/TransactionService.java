@@ -1,5 +1,6 @@
 package com.katabank.services;
 
+import com.katabank.dto.TransactionDTO;
 import com.katabank.dto.TransferRequestDTO;
 import com.katabank.entity.Transaction;
 
@@ -8,6 +9,6 @@ import java.util.List;
 
 
 public interface TransactionService {
-    List<Transaction> getTransactions(String cbuCvu, LocalDate startDate, LocalDate endDate);
-    Transaction transferFundsBetweenAccounts(TransferRequestDTO transferRequestDTO);
+    List<TransactionDTO> getTransactions();
+    TransactionDTO transferFundsBetweenAccounts(TransferRequestDTO transferRequestDTO);
 }
