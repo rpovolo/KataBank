@@ -12,7 +12,6 @@ import java.util.List;
 public class MovementServiceImpl implements MovementService {
 
     private final MovementRepository movementRepository;
-
     public MovementServiceImpl(MovementRepository movementRepository) {
         this.movementRepository = movementRepository;
     }
@@ -38,7 +37,6 @@ public class MovementServiceImpl implements MovementService {
                 .map(this::convertToDTO)
                 .toList();
     }
-
 
     private MovementDTO convertToDTO(Movement movement) {
         var dto = new MovementDTO();

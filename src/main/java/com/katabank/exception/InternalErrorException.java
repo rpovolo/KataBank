@@ -8,7 +8,6 @@ public class InternalErrorException extends BasicApiException {
     public InternalErrorException() {
         super(HttpStatus.INTERNAL_SERVER_ERROR, null);
     }
-
     public InternalErrorException(String message) {
         super(HttpStatus.INTERNAL_SERVER_ERROR, message);
     }

@@ -13,7 +13,6 @@ public class ExceptionHandlerConfig {
 
     public static final String PREFIX_ERROR_CODE = "KATA-BANK-ERROR-";
 
-
     @ExceptionHandler(value = BasicApiException.class)
     public ResponseEntity<Object> handleAllUncaughtException(
             BasicApiException ex,

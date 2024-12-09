@@ -2,7 +2,6 @@ package com.katabank.services.impl;
 
 import com.katabank.dto.AccountDTO;
 import com.katabank.dto.AccountRequestDTO;
-import com.katabank.entity.Account;
 import com.katabank.exception.AccountException;
 import com.katabank.mapper.AccountMapper;
 import com.katabank.repository.AccountRepository;
@@ -15,7 +14,6 @@ import java.util.List;
 public class AccountServiceImpl implements AccountService {
     private final AccountRepository accountRepository;
     private final AccountMapper mapperAccount =  Mappers.getMapper(AccountMapper.class);
-
     public AccountServiceImpl(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
@@ -31,7 +29,6 @@ public class AccountServiceImpl implements AccountService {
         var savedEntity = accountRepository.save(accountEntity);
         return mapperAccount.toDTO(savedEntity);
     }
-
 
     @Override
     public List<AccountDTO> getAll() {

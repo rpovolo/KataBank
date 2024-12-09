@@ -8,7 +8,6 @@ public class NotFoundException extends BasicApiException {
     public NotFoundException() {
         super(HttpStatus.NOT_FOUND, null);
     }
-
     public NotFoundException(String message) {
         super(HttpStatus.NOT_FOUND, message);
     }
