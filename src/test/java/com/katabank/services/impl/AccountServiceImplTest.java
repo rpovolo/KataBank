@@ -33,7 +33,7 @@ class AccountServiceImplTest {
     @Test
     void testSave_accountAlreadyExists_throwsException() {
 
-        AccountRequestDTO accountRequestDTO = new AccountRequestDTO();
+        var accountRequestDTO = new AccountRequestDTO();
         accountRequestDTO.setCbuCvu(CBU);
         when(accountRepository.findByCbuCvu(CBU)).thenReturn(Optional.of(new Account()));
         assertThrows(AccountException.class, () -> accountService.save(accountRequestDTO));
@@ -43,16 +43,16 @@ class AccountServiceImplTest {
 
     @Test
     void testSave_validAccount_savesAndReturnsDTO() {
-        AccountRequestDTO accountRequestDTO = new AccountRequestDTO();
+        var accountRequestDTO = new AccountRequestDTO();
         accountRequestDTO.setCbuCvu(CBU);
 
-        Account accountEntity = new Account();
+        var accountEntity = new Account();
         accountEntity.setCbuCvu(CBU);
 
-        Account savedEntity = new Account();
+        var savedEntity = new Account();
         savedEntity.setCbuCvu(CBU);
 
-        AccountDTO expectedAccountDTO = new AccountDTO();
+        var expectedAccountDTO = new AccountDTO();
         expectedAccountDTO.setCbuCvu(CBU);
 
         when(accountRepository.findByCbuCvu(Mockito.anyString())).thenReturn(Optional.empty());
@@ -60,7 +60,7 @@ class AccountServiceImplTest {
         when(accountRepository.save(Mockito.any(Account.class))).thenReturn(savedEntity);
         when(accountMapper.toDTO(Mockito.any(Account.class))).thenReturn(expectedAccountDTO);
 
-        AccountDTO result = accountService.save(accountRequestDTO);
+        var result = accountService.save(accountRequestDTO);
 
         assertNotNull(result);
         assertEquals(CBU, result.getCbuCvu());
@@ -68,22 +68,22 @@ class AccountServiceImplTest {
 
     @Test
     void testGetAll_returnsAccountDTOs() {
-        Account account1 = new Account();
+        var account1 = new Account();
         account1.setCbuCvu(CBU);
 
-        Account account2 = new Account();
+        var account2 = new Account();
         account2.setCbuCvu(CBU_2);
 
-        AccountDTO accountDTO1 = new AccountDTO();
+        var accountDTO1 = new AccountDTO();
         accountDTO1.setCbuCvu(CBU);
 
-        AccountDTO accountDTO2 = new AccountDTO();
+        var accountDTO2 = new AccountDTO();
         accountDTO2.setCbuCvu(CBU_2);
 
         when(accountRepository.findAll()).thenReturn(Arrays.asList(account1, account2));
         when(accountMapper.toAccountDTOs(Arrays.asList(account1, account2))).thenReturn(Arrays.asList(accountDTO1, accountDTO2));
 
-        List<AccountDTO> result = accountService.getAll();
+        var result = accountService.getAll();
 
         assertNotNull(result);
         assertEquals(2, result.size());

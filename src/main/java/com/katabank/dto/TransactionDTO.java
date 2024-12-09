@@ -1,9 +1,6 @@
 package com.katabank.dto;
 
-import com.katabank.entity.Account;
-import jakarta.persistence.*;
 import lombok.Data;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 

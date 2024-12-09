@@ -5,11 +5,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import java.util.Objects;
 
-
-/**
- * Error */
-
-
 @Builder
 public class ErrorDTO {
 

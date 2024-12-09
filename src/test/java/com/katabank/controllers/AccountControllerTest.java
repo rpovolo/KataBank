@@ -39,11 +39,11 @@ class AccountControllerTest {
 
     @Test
     void shouldCreateAccount_whenValidDataIsProvided() throws Exception {
-        AccountRequestDTO accountRequestDTO = new AccountRequestDTO();
+        var accountRequestDTO = new AccountRequestDTO();
         accountRequestDTO.setCbuCvu(CBU);
         accountRequestDTO.setBalance(BigDecimal.valueOf(1000));
 
-        AccountDTO accountDTO = new AccountDTO();
+        var accountDTO = new AccountDTO();
         accountDTO.setCbuCvu(CBU);
         accountDTO.setBalance(BigDecimal.valueOf(1000));
 
@@ -61,7 +61,7 @@ class AccountControllerTest {
 
     @Test
     void shouldReturnListOfAccounts_whenAccountsExist() throws Exception {
-        AccountDTO accountDTO = new AccountDTO();
+        var accountDTO = new AccountDTO();
         accountDTO.setCbuCvu(CBU);
         accountDTO.setBalance(BigDecimal.valueOf(1000));
 

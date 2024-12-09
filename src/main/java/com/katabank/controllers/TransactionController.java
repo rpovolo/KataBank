@@ -1,13 +1,9 @@
 package com.katabank.controllers;
 
-import com.katabank.dto.AccountDTO;
 import com.katabank.dto.ErrorDTO;
 import com.katabank.dto.TransactionDTO;
 import com.katabank.dto.TransferRequestDTO;
 import com.katabank.entity.Transaction;
-import com.katabank.exception.NotFoundException;
-import com.katabank.repository.AccountRepository;
-import com.katabank.repository.TransactionRepository;
 import com.katabank.services.TransactionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,12 +12,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.util.List;
 
 @RestController
@@ -49,7 +43,7 @@ public class TransactionController {
     })
     @PostMapping("/transactions/transfer")
     public ResponseEntity<TransactionDTO> transferFundsBetweenAccounts(@RequestBody @Valid TransferRequestDTO transferRequestDTO) {
-        TransactionDTO transaction = transactionService.transferFundsBetweenAccounts(transferRequestDTO);
+        var transaction = transactionService.transferFundsBetweenAccounts(transferRequestDTO);
         return ResponseEntity.ok(transaction);
     }
 

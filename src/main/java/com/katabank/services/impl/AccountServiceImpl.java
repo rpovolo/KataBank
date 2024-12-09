@@ -3,18 +3,13 @@ package com.katabank.services.impl;
 import com.katabank.dto.AccountDTO;
 import com.katabank.dto.AccountRequestDTO;
 import com.katabank.entity.Account;
-import com.katabank.entity.Transaction;
 import com.katabank.exception.AccountException;
-import com.katabank.exception.NotFoundException;
 import com.katabank.mapper.AccountMapper;
 import com.katabank.repository.AccountRepository;
 import com.katabank.services.AccountService;
 import org.mapstruct.factory.Mappers;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -32,8 +27,8 @@ public class AccountServiceImpl implements AccountService {
                     throw new AccountException("Error: The account with the given CBU/CVU already exists.");
                 });
 
-        Account accountEntity = mapperAccount.toEntity(accountRequestDTO);
-        Account savedEntity = accountRepository.save(accountEntity);
+        var accountEntity = mapperAccount.toEntity(accountRequestDTO);
+        var savedEntity = accountRepository.save(accountEntity);
         return mapperAccount.toDTO(savedEntity);
     }
 

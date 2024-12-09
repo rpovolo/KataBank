@@ -1,13 +1,9 @@
 package com.katabank.mapper;
 
-import com.katabank.dto.AccountDTO;
 import com.katabank.dto.TransactionDTO;
-import com.katabank.entity.Account;
 import com.katabank.entity.Transaction;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
-
 import java.util.List;
 
 @Mapper(uses = {AccountMapper.class})

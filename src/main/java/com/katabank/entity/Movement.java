@@ -20,7 +20,7 @@ public class Movement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long movementId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "transaction_id", nullable = false)
     private Transaction transaction;
 

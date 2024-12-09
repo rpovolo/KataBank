@@ -4,7 +4,6 @@ import com.katabank.dto.AccountDTO;
 import com.katabank.dto.AccountRequestDTO;
 import com.katabank.dto.ErrorDTO;
 import com.katabank.dto.MovementDTO;
-import com.katabank.entity.Transaction;
 import com.katabank.services.AccountService;
 import com.katabank.services.MovementService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,7 +19,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -49,7 +47,7 @@ public class AccountController {
             })
     })
     public ResponseEntity<AccountDTO> saveAccount(@RequestBody @Valid AccountRequestDTO accountRequestDTO) {
-        AccountDTO accountDTO = accountService.save(accountRequestDTO);
+        var accountDTO = accountService.save(accountRequestDTO);
         return new ResponseEntity<>(
                 accountDTO,
                 HttpStatus.CREATED);
@@ -91,7 +89,7 @@ public class AccountController {
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
             @Parameter(description = "End date in UTC for the movements filter, in ISO 8601 format (e.g., 2024-12-05T17:10:04.879+00:00) (optional).") LocalDateTime endDate) {
 
-        List<MovementDTO> movements = movementService.getMovements(account, startDate, endDate);
+        var movements = movementService.getMovements(account, startDate, endDate);
         return new ResponseEntity<>(movements, HttpStatus.OK);
     }
 }

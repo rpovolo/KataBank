@@ -5,11 +5,8 @@ import com.katabank.entity.Movement;
 import com.katabank.repository.MovementRepository;
 import com.katabank.services.MovementService;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class MovementServiceImpl implements MovementService {
@@ -44,7 +41,7 @@ public class MovementServiceImpl implements MovementService {
 
 
     private MovementDTO convertToDTO(Movement movement) {
-        MovementDTO dto = new MovementDTO();
+        var dto = new MovementDTO();
         dto.setMovementId(movement.getMovementId());
         dto.setTransactionId(movement.getTransaction().getId());
         dto.setAccountId(movement.getAccount().getId());

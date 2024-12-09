@@ -17,11 +17,8 @@ WORKDIR /app
 # Copia el archivo .jar desde la etapa de construcción
 COPY --from=build /app/target/kata-bank-1.0.0.jar app.jar
 
-# Establece el perfil de Spring a "web"
-ENV SPRING_PROFILES_ACTIVE=default
-
 # Expone el puerto 8080 para la aplicación
 EXPOSE 8080
 
-# Comando para ejecutar la aplicación con el perfil de Spring configurado
-ENTRYPOINT ["java", "-Dspring.profiles.active=${SPRING_PROFILES_ACTIVE}", "-jar", "app.jar"]
+# Comando para ejecutar la aplicación sin especificar el perfil de Spring
+ENTRYPOINT ["java", "-jar", "app.jar"]

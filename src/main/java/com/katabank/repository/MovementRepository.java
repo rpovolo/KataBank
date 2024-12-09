@@ -1,6 +1,5 @@
 package com.katabank.repository;
 
-import com.katabank.entity.Account;
 import com.katabank.entity.Movement;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
