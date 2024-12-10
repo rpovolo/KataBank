@@ -111,21 +111,29 @@ public class AccountOperationsServiceImpl implements AccountOperationsService {
     }
 
     private void logMovements(String cbuCvu, List<Movement> movements) {
-        logger.info("Cuenta: {}", cbuCvu);
-        logger.info("-------------------------------------------------------------------------------------------------");
-        logger.info(String.format("%-12s %-30s %-15s %-15s", "Fecha", "Descripción", "Monto", "Saldo"));
-        logger.info("-------------------------------------------------------------------------------------------------");
+
+        String logMessage = String.format("""
+            Cuenta: %s
+            -------------------------------------------------------------------------------------------------
+            %-12s %-30s %-15s %-15s
+            -------------------------------------------------------------------------------------------------
+        """, cbuCvu, "Fecha", "Descripción", "Monto", "Saldo");
+
+        logger.info(logMessage);
 
         var dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        for (Movement movement : movements) {
-            var date = movement.getCreatedAt().toLocalDate().format(dateFormatter);
-            var description = movement.getMovementType();
-            var amount = (movement.getMovementType() == MovementType.DEBIT ? "-" : "") + "$" + movement.getAmount();
-            var balance = "$" + movement.getBalanceAfter();
+        movements.stream()
+                .map(movement -> {
+                    var date = movement.getCreatedAt().toLocalDate().format(dateFormatter);
+                    var description = movement.getMovementType();
+                    var amount = (movement.getMovementType() == MovementType.DEBIT ? "-" : "") + "$" + movement.getAmount();
+                    var balance = "$" + movement.getBalanceAfter();
 
-            logger.info(String.format("%-12s %-30s %-15s %-15s", date, description, amount, balance));
-        }
+                    return String.format("%-12s %-30s %-15s %-15s", date, description, amount, balance);
+                })
+                .forEach(logger::info);
+
         logger.info("-------------------------------------------------------------------------------------------------");
     }
 

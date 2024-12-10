@@ -66,6 +66,14 @@ Puedes ver la documentación de la API en Swagger-UI accediendo a:
 
 http://localhost:8080/swagger-ui/index.html
 
+Para acceder a la base de datos H2:
+
+http://localhost:8080/h2-console/login.jsp
+
+user:sa
+
+password:password
+
 ###  En modo normal sin docker, hacer las siguientes acciones:
 
 ```bash
@@ -77,3 +85,4 @@ http://localhost:8080/swagger-ui/index.html
 ```bash
  mvn spring-boot:run
 ``` 
+Si desea usar el perfil "dev" desde el IDE debe cargar en **Environment Variables** el siguiente parámetro: --spring.profiles.active=dev
