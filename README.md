@@ -52,7 +52,7 @@ docker run -it --name kata-bank-1.0.0 -p 8080:8080 -e SPRING_PROFILES_ACTIVE=dev
 ###  Para poder efectuar consultar a traves de API rest, ejecutar lo siguiente:
 
 ```bash
-docker run --name kata-bank-1.0.0 -p 8080:8080 kata-bank-1.0.0
+docker run --name kata-bank-1.0.0 -p 8080:8080 -e SPRING_PROFILES_ACTIVE=default kata-bank-1.0.0
 ```
 ### Nota aclaratoria:
 Para alternar entre ejecuciones usando el mismo --name, es importante detener y eliminar el contenedor previamente, ya que Docker no permite crear dos contenedores con el mismo nombre. 

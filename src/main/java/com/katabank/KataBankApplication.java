@@ -19,6 +19,6 @@ public class KataBankApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        accountOperationsService.startConsole();
+           accountOperationsService.recordTransactions();
     }
 }
