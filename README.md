@@ -1,9 +1,5 @@
 # Kata Banking Account
 
-
-Claro, aquí tienes el texto mejorado y estructurado como lo pediste para el README:
-
-Descripción del Proyecto
 Este proyecto es una aplicación financiera que permite realizar transacciones bancarias entre cuentas, consultar los movimientos y dar de alta cuentas.
 
 ## Funcionalidad General
